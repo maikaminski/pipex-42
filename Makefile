@@ -6,13 +6,13 @@
 #    By: makamins <makamins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 17:27:56 by makamins          #+#    #+#              #
-#    Updated: 2025/01/23 17:30:37 by makamins         ###   ########.fr        #
+#    Updated: 2025/01/30 11:58:32 by makamins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 FLAGS = -Wall -Wextra -Werror 
-SRC = 
+SRC =  testFork.c
 CC = cc
 
 OBJS = $(SRC:%.c=%.o)
