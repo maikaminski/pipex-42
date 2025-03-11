@@ -6,7 +6,7 @@
 /*   By: makamins <makamins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:49:39 by makamins          #+#    #+#             */
-/*   Updated: 2025/02/21 14:10:57 by makamins         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:07:27 by makamins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include "../libft/libft.h"
+# include "./libft-pipex/libft.h"
 # include <errno.h> 
 
 typedef struct s_pipex

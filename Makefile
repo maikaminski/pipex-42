@@ -6,21 +6,21 @@
 #    By: makamins <makamins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 17:27:56 by makamins          #+#    #+#              #
-#    Updated: 2025/02/21 14:32:58 by makamins         ###   ########.fr        #
+#    Updated: 2025/03/11 16:20:02 by makamins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 FLAGS = -Wall -Wextra -Werror 
-SRC =  pipex_utils.c pipex.c
+SRC = pipex.c pipex_utils.c
 CC = cc
-LIBFT = ../libft/libft.a 
+LIBFT = libft-pipex/libft.a 
 
 OBJS = $(SRC:%.c=%.o)
 
 all: $(NAME)
 libft:
-	make -C libft
+	@make -C libft-pipex
 	
 $(NAME): $(OBJS) libft
 	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT)
@@ -31,9 +31,11 @@ $(NAME): $(OBJS) libft
 
 clean:
 	rm -f $(OBJS)
+	@make clean -C libft-pipex
 
 fclean: clean
 	rm -f $(NAME)
+	@make fclean -C libft-pipex
 
 re: fclean all
 
