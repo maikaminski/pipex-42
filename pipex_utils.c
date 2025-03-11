@@ -6,7 +6,7 @@
 /*   By: makamins <makamins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:52:57 by makamins          #+#    #+#             */
-/*   Updated: 2025/02/21 14:26:13 by makamins         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:00:51 by makamins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char	*get_cmd_path(char *cmd, char **envp)
 	char	*full_path;
 	int		i;
 
+	if (!cmd || !cmd[0])
+		return (NULL);
 	i = 0;
 	paths = get_paths(envp);
 	if (!paths)
@@ -53,11 +55,15 @@ char	*get_cmd_path(char *cmd, char **envp)
 	{
 		full_path = construct_path(paths[i], cmd);
 		if (full_path && access(full_path, X_OK) == 0)
-			return (free_array(paths), full_path);
+		{
+			free_array(paths);
+			return (full_path);
+		}
 		free(full_path);
 		i++;
 	}
-	return (free_array(paths), NULL);
+	free_array(paths);
+	return (NULL);
 }
 
 void	free_array(char **array)
@@ -75,26 +81,18 @@ void	free_array(char **array)
 
 void	is_error(int i, t_pipex *pipex)
 {
-	if (i == 0)
-		perror("Error: opening input file");
-	else if (i == 1)
-		perror("Error: duplicating fd[1] or infile");
-	else if (i == 2)
+	if (i == 1)
 		perror("Error: opening output file");
-	else if (i == 3)
-		perror("Error: duplicating fd[0] or outfile");
-	else if (i == 4)
+	else if (i == 2)
 	{
-		if (errno == ENOENT)
-			perror("Error: Command not found");
-		else
-			perror("Error: Execution failed");
+		perror("Error: Not permission or command not found");
+		if (pipex->outfile >= 0)
+			close(pipex->outfile);
+		exit(EXIT_FAILURE);
 	}
-	else if (i == 5)
-		perror("Error: right prototype: ./pipex file1 cmd1 cmd2 file2");
-	else if (i == 6)
+	else if (i == 3)
 		perror("Error: creating pipe");
-	else if (i == 7)
+	else if (i == 4)
 		perror("Error: creating process");
 	cleanup_and_exit(pipex, EXIT_FAILURE);
 }
