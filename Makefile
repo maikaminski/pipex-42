@@ -6,7 +6,7 @@
 #    By: makamins <makamins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 17:27:56 by makamins          #+#    #+#              #
-#    Updated: 2025/03/11 16:20:02 by makamins         ###   ########.fr        #
+#    Updated: 2025/03/17 12:57:41 by makamins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = pipex
 FLAGS = -Wall -Wextra -Werror 
 SRC = pipex.c pipex_utils.c
 CC = cc
-LIBFT = libft-pipex/libft.a 
+LIBFT = libft-pipex/libft.a
+VALGRIND_FLAGS = --leak-check=full --error-exitcode=1
 
 OBJS = $(SRC:%.c=%.o)
 
@@ -24,7 +25,10 @@ libft:
 	
 $(NAME): $(OBJS) libft
 	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT)
-	chmod +x $(NAME) 
+	chmod +x $(NAME)
+
+valgrind: $(NAME)
+	valgrind $(VALGRIND_FLAGS) ./pipex infile "ls -l" "wc -l" outfile
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
@@ -40,3 +44,5 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+
