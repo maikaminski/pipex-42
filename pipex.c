@@ -6,35 +6,11 @@
 /*   By: makamins <makamins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:49:27 by makamins          #+#    #+#             */
-/*   Updated: 2025/03/06 16:00:30 by makamins         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:53:47 by makamins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	close_fds(t_pipex *pipex)
-{
-	if (pipex->infile >= 0)
-		close(pipex->infile);
-	if (pipex->outfile >= 0)
-		close(pipex->outfile);
-	close(pipex->pipe_fd[0]);
-	close(pipex->pipe_fd[1]);
-}
-
-void	cleanup_and_exit(t_pipex *pipex, int exit_code)
-{
-	if (pipex->cmd1_args)
-		free_array(pipex->cmd1_args);
-	if (pipex->cmd2_args)
-		free_array(pipex->cmd2_args);
-	if (pipex->cmd1_path)
-		free(pipex->cmd1_path);
-	if (pipex->cmd2_path)
-		free(pipex->cmd2_path);
-	close_fds(pipex);
-	exit(exit_code);
-}
 
 void	execute_process(t_pipex *pipex)
 {

@@ -6,13 +6,13 @@
 #    By: makamins <makamins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 17:27:56 by makamins          #+#    #+#              #
-#    Updated: 2025/03/17 12:57:41 by makamins         ###   ########.fr        #
+#    Updated: 2025/03/19 12:54:04 by makamins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 FLAGS = -Wall -Wextra -Werror 
-SRC = pipex.c pipex_utils.c
+SRC = pipex.c pipex_utils.c pipex_paths.c
 CC = cc
 LIBFT = libft-pipex/libft.a
 VALGRIND_FLAGS = --leak-check=full --error-exitcode=1
