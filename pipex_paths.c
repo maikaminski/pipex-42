@@ -6,7 +6,7 @@
 /*   By: makamins <makamins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:51:47 by makamins          #+#    #+#             */
-/*   Updated: 2025/03/19 12:52:42 by makamins         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:01:05 by makamins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,18 @@ char	*find_cmd_in_paths(char **paths, char *cmd)
 char	*get_cmd_path(char *cmd, char **envp)
 {
 	char	**paths;
+	char	*cmd_path;
 
 	if (!cmd || !cmd[0])
 		return (NULL);
 	paths = ft_split(cmd, ' ');
 	if (access(paths[0], X_OK) == 0)
-		return (paths[0]);
+	{
+		cmd_path = ft_strdup(paths[0]);
+		free_array(paths);
+		return (cmd_path);
+	}
+	free_array(paths);
 	paths = get_paths(envp);
 	if (!paths)
 		return (NULL);

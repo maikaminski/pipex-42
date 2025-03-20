@@ -6,7 +6,7 @@
 /*   By: makamins <makamins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:52:57 by makamins          #+#    #+#             */
-/*   Updated: 2025/03/19 12:53:38 by makamins         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:53:11 by makamins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,18 @@ void	is_error(int i, t_pipex *pipex)
 	{
 		perror("Error: Not permission or command not found");
 		if (pipex->outfile >= 0)
+		{
 			close(pipex->outfile);
+			close(pipex->infile);
+		}
+		if (pipex->cmd1_args)
+			free_array(pipex->cmd1_args);
+		if (pipex->cmd2_args)
+			free_array(pipex->cmd2_args);
+		if (pipex->cmd1_path)
+			free(pipex->cmd1_path);
+		if (pipex->cmd2_path)
+			free(pipex->cmd2_path);
 		exit(EXIT_FAILURE);
 	}
 	else if (i == 3)
